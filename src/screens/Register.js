@@ -1,0 +1,95 @@
+import { auth } from '../firebase/config';
+import React, { Component } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+
+
+class Register extends Component {
+
+    //creamos props con estados vacios
+    constructor(props) {
+		super(props);
+		this.state = {
+			email: '',
+			pass: '',
+			nombreUsuario: '',
+		};
+	}
+    componentDidMount() {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				this.props.navigation.navigate('HomeMenu');
+			}
+		});
+	}
+	//Al registrar un user, queremos guardarlo en la db con nombre,biografia.
+
+	registerUser(email, pass, nombreUsuario) {
+		auth
+        //metodo de firebase para crear usuario
+			.createUserWithEmailAndPassword(email, pass)
+			.then((res) => {
+				db
+                //creamos usuario en la base de datos
+					.collection('users')
+					.add({
+						email: email,
+						nombreUsuario: nombreUsuario,
+					})
+                    //reiniciamos el state a 0
+					.then((res) => {
+						this.setState({
+							email: '',
+							pass: '',
+						});
+                        //una vez creado el usuario que te lleve al menu
+						this.props.navigation.navigate('HomeMenu');
+					});
+			})
+			.catch((error) => console.log(error));
+	}
+
+	render() {
+		return (
+			<View>
+				<Text>Registro</Text>
+				<View>
+					<TextInput
+                     style={styles.field} 
+                     placeholder="email"
+                      keyboardType="email-address" 
+                      onChangeText={(text) => this.setState({ email: text })} 
+                      value={this.state.email} />
+					<TextInput
+						style={styles.field}
+						placeholder="Nombre de usuario"
+						keyboardType="default"
+						onChangeText={(text) => this.setState({ nombreUsuario: text })}
+						value={this.state.nombreUsuario}
+					/>
+					<TextInput 
+                    style={styles.field} 
+                    placeholder="password" 
+                    keyboardType="default" 
+                    secureTextEntry onChangeText={(text) => this.setState({ pass: text })} 
+                    value={this.state.pass} 
+                    />
+
+                   {/* si toco tengo cuenta que me lleve al login */}
+					<Text onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
+
+                     {/*  cuando tocamos el boton registrarme con el metodo Onpress
+                     con un callback llamamos a la funcion registerUser y creamos el usuario */}
+					<TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.nombreUsuario)}>
+						<Text>Registrarme</Text>
+					</TouchableOpacity>
+				</View>
+			</View>
+		);
+	}
+}
+
+const styles = StyleSheet.create({
+	field: {},
+});
+
+export default Register;
