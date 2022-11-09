@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 //componentes que creamos nosotros y los traemos
 import Register from './src/screens/Register';
 import Login from './src/screens/login';
+import HomeMenu from './src/components/HomeMenu';
 
 //dependencias que instalamos stack navigation y navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -18,6 +19,7 @@ export default function App() {
     <Stack.Navigator>
       <Stack.Screen options={{ headerShown: false }} name="Register" component={Register} />
       <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
+      <Stack.Screen options={{ headerShown: false }} name="HomeMenu" component={HomeMenu} />
     </Stack.Navigator>
   </NavigationContainer>
   );
