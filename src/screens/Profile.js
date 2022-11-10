@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { auth } from '../firebase/config';
 
 class Profile extends Component {
-	 constructor(props) {
+	  constructor(props) {
 		super(props);
 		this.state = {};
 	}
@@ -11,14 +11,14 @@ class Profile extends Component {
 	logOut() {
 		auth.signOut();
 		this.props.navigation.navigate('Login');
-	} 
+	}  
 	render() {
 		return (
 			<>
 				 <Text> Mi Perfil </Text>
 				<TouchableOpacity onPress={() => this.logOut()}>
 					<Text>Cerrar Sesion</Text>
-				</TouchableOpacity> 
+				</TouchableOpacity>  
 			</>
 		);
 	}
