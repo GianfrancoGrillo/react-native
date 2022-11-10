@@ -12,7 +12,7 @@ class Register extends Component {
 			email: '',
 			pass: '',
 			checkpass: '',
-			username: '',
+			nombreUsuario: '',
 			bio: '',
 			error: '',
 		};
