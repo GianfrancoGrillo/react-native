@@ -10,6 +10,7 @@ class Login extends Component {
 		this.state = {
 			email: '',
 			pass: '',
+			error:'',
 		};
 	}
 	loginUser(email, pass) {
@@ -17,6 +18,10 @@ class Login extends Component {
         //metodo de firebase para ingresar
 			.signInWithEmailAndPassword(email, pass)
 			.then((res) => {
+				this.setState({
+					email: '',
+					pass: '',
+				});
 				this.props.navigation.navigate('HomeMenu');
 			})
 			.catch((error) => console.log(error));
@@ -52,7 +57,46 @@ class Login extends Component {
 }
 
 const styles = StyleSheet.create({
-	field: {},
+	header:{
+		backgroundColor: "#14213D",
+		width: "100%",
+		padding: 10,
+		marginBottom: 20,
+	},	
+	headertitle:{
+		color: "white",
+		textAlign: "center",
+		fontSize: 20,
+		fontWeight: "600",
+		padding: 10,
+	},
+	container:{
+		overflow: "hidden",
+		flex: 1,
+		flexDirection: "column",
+		alignItems: "center",
+		backgroundColor: "#FFFFFF",
+		color: "#ff9f68",
+		paddingTop: 20,
+	},
+	 form:{
+		backgroundColor: 'red',
+	}, 
+	field: {
+		width: "50%",
+		backgroundColor: "#E5E5E5",
+		textAlign: "center",
+		padding: 7,
+		marginTop: 5,
+		borderRadius: 15,
+	  },
+	  title: {
+		color: "#000000",
+		textAlign: "center",
+		fontSize: 20,
+		fontWeight: "600",
+		padding: 10,
+	  },
 });
 
 export default Login;
