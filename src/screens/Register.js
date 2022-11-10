@@ -26,7 +26,7 @@ class Register extends Component {
 	}
 	//Al registrar un user, queremos guardarlo en la db con nombre,biografia.
 
-	registerUser(email, pass, nombreUsuario, pass, bio, checkpass) {
+	registerUser(email, pass, nombreUsuario, bio, checkpass) {
 		//Chequear si estan vacios los campos
 		//Si estan vacios, seteame el estado error a un mesaje
 		//Despues pones return
