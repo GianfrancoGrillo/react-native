@@ -92,6 +92,10 @@ class Register extends Component {
 						value={this.state.pass}
 					/>
 
+                    
+
+
+
 					{/* si toco tengo cuenta que me lleve al login */}
 					<Text onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
 
