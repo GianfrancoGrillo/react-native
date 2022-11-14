@@ -11,7 +11,6 @@ class Register extends Component {
 		this.state = {
 			email: '',
 			pass: '',
-			checkpass: '',
 			nombreUsuario: '',
 			bio: '',
 			error: {
@@ -31,7 +30,7 @@ class Register extends Component {
 	}
 	//Al registrar un user, queremos guardarlo en la db con nombre,biografia.
 
-	registerUser(email, pass, nombreUsuario, bio, checkpass) {
+	registerUser(email, pass, nombreUsuario, bio, ) {
 		//Chequear si estan vacios los campos
 		//Si estan vacios, seteame el estado error a un mesaje
 		//Despues pones return
@@ -39,10 +38,7 @@ class Register extends Component {
 			this.setState({ error: 'Todos los campos son obligatorios' })
 			return
 		}
-		if (this.state.pass !== this.state.checkpass) {
-			this.setState({ error: 'Las contraseñas no coinciden' })
-			return
-		}
+		
 		auth
 			//metodo de firebase para crear usuario
 			.createUserWithEmailAndPassword(email, pass)
