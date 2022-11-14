@@ -6,7 +6,9 @@ import { View,
          StyleSheet, 
          ActivityIndicator,
          FlatList, 
-         Image } from 'react-native';
+         Image,
+         ScrollView
+         } from 'react-native';
 import Post from './Post';
 
 
@@ -42,6 +44,7 @@ class Home extends Component {
     render(){
         // console.log(this.state);
         return(
+            <ScrollView>
                 <View>
                     <Text>Posteos</Text>
                     <FlatList 
@@ -52,7 +55,7 @@ class Home extends Component {
                     />
                     
                 </View>
-
+                </ScrollView>
         )
     }
 }
