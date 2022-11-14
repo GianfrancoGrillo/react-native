@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
@@ -42,9 +42,17 @@ class Post extends Component {
 	render() {
 		return (
 			<View style={styles.separator}>
-				<Text>Post de: {this.props.dataPost.data.owner}</Text>
+				
 				<Text>Texto del Post: {this.props.dataPost.data.description}</Text>
 				<Text>Cantidad de likes: {this.state.cantidadDeLikes}</Text>
+                <Text style={styles.text2}><strong>@{this.props.dataPost.data.owner}</strong></Text>
+                <Image 
+                    source={{uri:this.props.dataPost.data.url}}
+                    resizeMode="contain"
+                    style={styles.image}
+                />
+
+
 				{this.state.myLike ? (
 					<TouchableOpacity onPress={() => this.unLike()}>
 						<Text>Quitar Like</Text>
@@ -53,8 +61,6 @@ class Post extends Component {
 					<TouchableOpacity onPress={() => this.like()}>
 						<Text>Like</Text>
 					</TouchableOpacity>
-					
-
 				)}
 					<TouchableOpacity onPress={() => this.props.navigation.navigate("Comments",{id:this.props.dataPost.id})}>
 						<Text>Comments</Text>
@@ -72,6 +78,10 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		paddingHorizontal: 20,
 	},
+    image: {
+        height:250,
+        padding:0
+    }
 });
 
 export default Post;
