@@ -53,6 +53,8 @@ class Post extends Component {
 					<TouchableOpacity onPress={() => this.like()}>
 						<Text>Like</Text>
 					</TouchableOpacity>
+					
+
 				)}
 			</View>
 		);

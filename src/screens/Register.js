@@ -14,7 +14,12 @@ class Register extends Component {
 			checkpass: '',
 			nombreUsuario: '',
 			bio: '',
-			error: '',
+			error: {
+				email: '',
+				nombreUsuario: '',
+				pass: '',
+				bio: '',
+			},
 		};
 	}
 	componentDidMount() {
@@ -49,7 +54,7 @@ class Register extends Component {
 						email: email,
 						nombreUsuario: nombreUsuario,
 						bio: bio,
-						checkpass: checkpass,
+
 					})
 					//reiniciamos el state a 0
 					.then((res) => {
@@ -57,7 +62,7 @@ class Register extends Component {
 							email: '',
 							pass: '',
 							bio: bio,
-							checkpass: checkpass,
+
 						});
 						//una vez creado el usuario que te lleve al menu
 						this.props.navigation.navigate('HomeMenu');
@@ -68,50 +73,116 @@ class Register extends Component {
 
 	render() {
 		return (
-			<View>
-				<Text>Registro</Text>
-				<View>
-					<TextInput
-						style={styles.field}
-						placeholder="email"
-						keyboardType="email-address"
-						onChangeText={(text) => this.setState({ email: text })}
-						value={this.state.email} />
-					<TextInput
-						style={styles.field}
-						placeholder="Nombre de usuario"
-						keyboardType="default"
-						onChangeText={(text) => this.setState({ nombreUsuario: text })}
-						value={this.state.nombreUsuario}
-					/>
-					<TextInput
-						style={styles.field}
-						placeholder="password"
-						keyboardType="default"
-						secureTextEntry onChangeText={(text) => this.setState({ pass: text })}
-						value={this.state.pass}
-					/>
-
-                    
-
-
-
-					{/* si toco tengo cuenta que me lleve al login */}
-					<Text onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
-
-					{/*  cuando tocamos el boton registrarme con el metodo Onpress
-                     con un callback llamamos a la funcion registerUser y creamos el usuario */}
-					<TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.nombreUsuario)}>
-						<Text>Registrarme</Text>
-					</TouchableOpacity>
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<Text style={styles.headertitle}>REGISTRO</Text>
+					<Text style={styles.errorText}>
+						{this.state.error.email && 'La dirección de email es obligatoria'}
+					</Text>
 				</View>
+
+				<TextInput
+
+					style={styles.field}
+					placeholder="email"
+					keyboardType="email-address"
+					onChangeText={(text) => this.setState({ email: text })}
+					value={this.state.email} />
+				<Text style={styles.errorText}>
+					{this.state.error.nombreUsuario && 'El nombre de usuario es obligatorio'}
+				</Text>
+				<TextInput
+					style={styles.field}
+					placeholder="Nombre de usuario"
+					keyboardType="default"
+					onChangeText={(text) => this.setState({ nombreUsuario: text })}
+					value={this.state.nombreUsuario}
+				/>
+				<Text style={styles.errorText}>
+					{this.state.error.bio && 'La biografía es obligatoria'}
+				</Text>
+				<TextInput
+					style={styles.field}
+					placeholder="Biografía"
+					keyboardType="default"
+					onChangeText={(text) => this.setState({ bio: text })}
+					value={this.state.bio}
+				/>
+				<Text style={styles.errorText}>
+					{this.state.error.pass && 'La contraseña es obligatoria'}
+				</Text>
+				<TextInput
+					style={styles.field}
+					placeholder="password"
+					keyboardType="default"
+					secureTextEntry onChangeText={(text) => this.setState({ pass: text })}
+					value={this.state.pass}
+				/>
+
+
+
+
+
+				{/* si toco tengo cuenta que me lleve al login */}
+				<Text style={styles.bold} onPress={() => this.props.navigation.navigate('Login')}>YA TENGO CUENTA</Text>
+
+				{/*  cuando tocamos el boton registrarme con el metodo Onpress
+                     con un callback llamamos a la funcion registerUser y creamos el usuario */}
+				<TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.nombreUsuario, this.state.bio)}>
+					<Text style={styles.bold}>REGISTRARME</Text>
+				</TouchableOpacity>
 			</View>
+
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	field: {},
+	header: {
+		backgroundColor: "#FF9333",
+		width: "100%",
+		padding: 10,
+		marginBottom: 20,
+	},
+	headertitle: {
+		color: "white",
+		textAlign: "center",
+		fontSize: 20,
+		fontWeight: "600",
+		padding: 10,
+	},
+	container: {
+		overflow: "hidden",
+		flex: 1,
+		flexDirection: "column",
+		alignItems: "center",
+		backgroundColor: "#FFFFFF",
+		color: "#ff9f68",
+		paddingTop: 20,
+	},
+	/* form:{
+		backgroundColor: 'red',
+	}, */
+	field: {
+		width: "50%",
+		backgroundColor: "#E5E5E5",
+		textAlign: "center",
+		padding: 7,
+		marginTop: 5,
+		borderRadius: 15,
+	},
+	title: {
+		color: "#000000",
+		textAlign: "center",
+		fontSize: 20,
+		fontWeight: "600",
+		padding: 10,
+	},
+	bold:{
+		fontWeight: "bold",
+	}
+		
 });
+
 
 export default Register;

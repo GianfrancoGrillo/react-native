@@ -29,8 +29,10 @@ class Login extends Component {
 
 	render() {
 		return (
-			<View>
-				<Text>Ingresar</Text>
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<Text style={styles.headertitle}>INGRESAR</Text>
+				</View>		
 				<View>
 					<TextInput 
                     style={styles.field} 
@@ -48,8 +50,8 @@ class Login extends Component {
                       value={this.state.pass} 
                       />
 
-					<Text onPress={() => this.loginUser(this.state.email, this.state.pass)}>Loguearme</Text>
-					<Text onPress={() => this.props.navigation.navigate('Register')}>No tengo cuenta</Text>
+					<Text style={styles.bold} onPress={() => this.loginUser(this.state.email, this.state.pass)}>LOGUEARME</Text>
+					<Text style={styles.bold} onPress={() => this.props.navigation.navigate('Register')}>NO TENGO CUENTA</Text>
 				</View>
 			</View>
 		);
@@ -58,7 +60,7 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
 	header:{
-		backgroundColor: "#14213D",
+		backgroundColor: "#FF9333",
 		width: "100%",
 		padding: 10,
 		marginBottom: 20,
@@ -79,16 +81,14 @@ const styles = StyleSheet.create({
 		color: "#ff9f68",
 		paddingTop: 20,
 	},
-	 form:{
-		backgroundColor: 'red',
-	}, 
+	
 	field: {
 		width: "50%",
 		backgroundColor: "#E5E5E5",
 		textAlign: "center",
-		padding: 7,
+		padding: 10,
 		marginTop: 5,
-		borderRadius: 15,
+		borderRadius: 40,
 	  },
 	  title: {
 		color: "#000000",
@@ -97,6 +97,9 @@ const styles = StyleSheet.create({
 		fontWeight: "600",
 		padding: 10,
 	  },
+	  bold:{
+		fontWeight: "bold",
+	}
 });
 
 export default Login;
