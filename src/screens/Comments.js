@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { db, auth } from '../firebase/config';
+import firebase from 'firebase'
 import { View,
          Text,
          TouchableOpacity, 
@@ -18,27 +19,29 @@ class Comments extends Component {
     }
     
     componentDidMount(){
-        db.collection('posts').doc(this.props.route.params.id).onSnapshot(
-           
+        db.collection('posts').doc(this.props.route.params.id).onSnapshot(doc=>{
                 this.setState({
                     comments: doc.data().comments 
                 })
-            
+        }
         )
-
-        
     }
-    Comentario() {
+    
+    comentario() {
 
 		db
-			.collection('comentarios')
-			.doc(this.props.dataPost.id)
+			.collection('posts')
+			.doc(this.props.route.params.id)
 			.update({
-				comentarios: firebase.firestore.FieldValue.arrayUnion({email: auth.currentUser.email, comentario:this.props.route.params}),
+			        comments: firebase.firestore.FieldValue.arrayUnion({
+                    email: auth.currentUser.email,
+                    comentario: this.state.textComment,
+                    createdAt: Date.now()
+                })
 			})
 			.then(() =>
 				this.setState({
-					
+					textComment: "",
 					
 				})
 			)
@@ -51,17 +54,27 @@ class Comments extends Component {
         return(
                 <View>
                     <Text>Comment</Text>
-                
+                  <FlatList
+                     data={this.state.comments}
+                     keyExtractor={item => item.createdAt}
+                     renderItem={({item})=>
+                     <View>
+                    <Text>{item.email}</Text> 
+                    <Text>{item.comentario}</Text> 
+                     </View>
+                     }
+
+                  >
+                 </FlatList>
+
                      <TextInput
-                    
                      placeholder="text"
                      keyboardType="default"
                      onChangeText={(text) => this.setState({textComment : text })}
                      value={this.state.textComment}/>
                      <TouchableOpacity
-                     
-                      onPress={()=>{}}
-                    />
+                      onPress={()=>{this.comentario(this.state.textComment)}}
+                    ><Text> Agregar comentario</Text></TouchableOpacity>
                 </View>
 
         )
