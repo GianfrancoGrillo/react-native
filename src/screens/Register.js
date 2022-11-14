@@ -1,4 +1,4 @@
-import { auth } from '../firebase/config';
+import { auth, db } from '../firebase/config';
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
@@ -22,11 +22,11 @@ class Register extends Component {
 		};
 	}
 	componentDidMount() {
-		auth.onAuthStateChanged((user) => {
+		 auth.onAuthStateChanged((user) => {
 			if (user) {
 				this.props.navigation.navigate('HomeMenu');
 			}
-		});
+		}); 
 	}
 	//Al registrar un user, queremos guardarlo en la db con nombre,biografia.
 
@@ -61,7 +61,7 @@ class Register extends Component {
 
 						});
 						//una vez creado el usuario que te lleve al menu
-						this.props.navigation.navigate('HomeMenu');
+						/* this.props.navigation.navigate('HomeMenu'); */
 					});
 			})
 			.catch((error) => console.log(error));
