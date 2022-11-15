@@ -43,9 +43,7 @@ class Post extends Component {
 		return (
 			<View style={styles.separator}>
 				
-				<Text>Texto del Post: {this.props.dataPost.data.description}</Text>
-				<Text>Cantidad de likes: {this.state.cantidadDeLikes}</Text>
-                <Text style={styles.text2}><strong>@{this.props.dataPost.data.owner}</strong></Text>
+				 <Text  onPress={() => this.props.navigation.navigate('Profile')} style={styles.title}><strong>@{this.props.dataPost.data.owner}</strong></Text>
                 <Image 
                     source={{uri:this.props.dataPost.data.url}}
                     resizeMode="contain"
@@ -59,12 +57,18 @@ class Post extends Component {
 					</TouchableOpacity>
 				) : (
 					<TouchableOpacity onPress={() => this.like()}>
-						<Text>Like</Text>
+						<Text style={styles.grande}>❤️</Text>
 					</TouchableOpacity>
+					
 				)}
-					<TouchableOpacity onPress={() => this.props.navigation.navigate("Comments",{id:this.props.dataPost.id})}>
-						<Text>Comments</Text>
-					</TouchableOpacity>
+				<TouchableOpacity onPress={() => this.props.navigation.navigate("Comments",{id:this.props.dataPost.id})}>
+				<Text style={styles.grande}>💭</Text>
+			</TouchableOpacity>
+					
+				<Text>Cantidad de likes: {this.state.cantidadDeLikes}</Text>
+				<Text>Texto del Post: {this.props.dataPost.data.description}</Text>
+				
+					
 					
 			</View>
 		);
@@ -77,11 +81,19 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		marginBottom: 10,
 		paddingHorizontal: 20,
+		display: "flex"
+		
 	},
     image: {
         height:250,
         padding:0
-    }
+    },
+	title:{
+		textAlign:"center"
+	},
+	grande:{
+fontSize: 30
+	}
 });
 
 export default Post;

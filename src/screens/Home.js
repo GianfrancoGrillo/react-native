@@ -46,7 +46,7 @@ class Home extends Component {
         return(
             <ScrollView>
                 <View>
-                    <Text>Posteos</Text>
+                    <Text style={styles.title}>POSTEOS</Text>
                     <FlatList 
                         data={this.state.posts}
                         keyExtractor={post => post.id}
@@ -59,6 +59,23 @@ class Home extends Component {
         )
     }
 }
+const styles = StyleSheet.create({
+	header: {
+		backgroundColor: "#FF9333",
+		width: "100%",
+		padding: 10,
+		marginBottom: 20,
+	},
+    title:{
+		color: "#000000",
+		textAlign: "center",
+		fontSize: 20,
+		fontWeight: "600",
+		padding: 10,
+    }
+    
+	
+});
 
 
 export default Home;

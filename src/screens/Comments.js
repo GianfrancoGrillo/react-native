@@ -6,6 +6,7 @@ import { View,
          TouchableOpacity, 
          FlatList,
          TextInput, 
+         StyleSheet,
           } from 'react-native';
 import Post from './Post';
 
@@ -53,7 +54,7 @@ class Comments extends Component {
         // console.log(this.state);
         return(
                 <View>
-                    <Text>Comment</Text>
+                    <Text style={styles.title}>Comment</Text>
                   <FlatList
                      data={this.state.comments}
                      keyExtractor={item => item.createdAt}
@@ -67,12 +68,12 @@ class Comments extends Component {
                   >
                  </FlatList>
 
-                     <TextInput
+                     <TextInput style={styles.field}
                      placeholder="text"
                      keyboardType="default"
                      onChangeText={(text) => this.setState({textComment : text })}
                      value={this.state.textComment}/>
-                     <TouchableOpacity
+                     <TouchableOpacity style={styles.button}
                       onPress={()=>{this.comentario(this.state.textComment)}}
                     ><Text> Agregar comentario</Text></TouchableOpacity>
                 </View>
@@ -81,5 +82,69 @@ class Comments extends Component {
     }
 }
 
+const styles = StyleSheet.create({
+	header: {
+		backgroundColor: "#FF9333",
+		width: "100%",
+		padding: 10,
+		marginBottom: 20,
+	},
+	headertitle: {
+		color: "white",
+		textAlign: "center",
+		fontSize: 20,
+		fontWeight: "600",
+		padding: 10,
+	},
+	container: {
+		overflow: "hidden",
+		flex: 1,
+		flexDirection: "column",
+		alignItems: "center",
+		backgroundColor: "#FFFFFF",
+		color: "#ff9f68",
+		paddingTop: 20,
+	},
+	/* form:{
+		backgroundColor: 'red',
+	}, */
+	field: {
+		width: "50%",
+		backgroundColor: "#E5E5E5",
+		textAlign: "center",
+		padding: 7,
+		marginTop: 5,
+		borderRadius: 15,
+	},
+	title: {
+		color: "#000000",
+		textAlign: "center",
+		fontSize: 20,
+		fontWeight: "600",
+		padding: 10,
+	},
+	bold:{
+		fontWeight: "bold",
+	},
+	button: {
+        padding:8,
+        backgroundColor:'#FF9333',
+        borderRadius:8,
+        textAlign:'center',
+        marginVertical:8,
+        marginHorizontal:16,
+        width:280
+    },
+	button2: {
+        padding:8,
+        backgroundColor:'grey',
+        borderRadius:8,
+        textAlign:'center',
+        marginVertical:8,
+        marginHorizontal:16,
+        width:280
+    },
+		
+});
 
 export default Comments;

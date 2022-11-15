@@ -13,12 +13,22 @@ const Tab = createBottomTabNavigator();
 function HomeMenu() {
 	return (
 		<Tab.Navigator>
-			<Tab.Screen name="Home" component={Home}  options={{ tabBarIcon: () => <FontAwesome name="home" size={24} color="black" /> }} />
-			<Tab.Screen name="Profile" component={Profile} options={{ tabBarIcon: () => <FontAwesome name="user" size={24} color="black" /> }} />
-            <Tab.Screen name='Search' component={Search} options={{tabBarIcon: ({focused}) => <Ionicons name="search-sharp" size={24} color='black'/>}}/>
-             <Tab.Screen name="NewPost" component={NewPost}  options={{ tabBarIcon: () => <FontAwesome name="photo" size={24} color="black" /> }} />
+			<Tab.Screen style={styles.naranja} name="Home" component={Home}  options={{ tabBarIcon: () => <FontAwesome name="home"  size={24} color="#FF9333" /> }} />
+			<Tab.Screen style={styles.naranja}name="Profile" component={Profile} options={{ tabBarIcon: () => <FontAwesome name="user" size={24} color="#FF9333" /> }} />
+            <Tab.Screen style={styles.naranja}name='Search' component={Search} options={{tabBarIcon: ({focused}) => <Ionicons name="search-sharp" size={24} color='#FF9333'/>}}/>
+             <Tab.Screen style={styles.naranja}name="NewPost" component={NewPost}  options={{ tabBarIcon: () => <FontAwesome name="photo" size={24} color="#FF9333" /> }} />
 		</Tab.Navigator>
 	);
 }
-
+const styles = StyleSheet.create({
+	header: {
+		backgroundColor: "#FF9333",
+		width: "100%",
+		padding: 10,
+		marginBottom: 20,
+	},
+	naranja:{
+		backgroundColor:"#FF9333"
+	}})
+	
 export default HomeMenu;

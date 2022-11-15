@@ -123,13 +123,14 @@ const styles = StyleSheet.create({
     cameraBody: {
         height: '80%',
     },
-    button:{
-        height: '20%',
-        borderColor: '#ccc',
-        borderWidth: 1,
-        padding: 5,
-        borderRadius: 4,
-        marginTop: 20
+    button: {
+        padding:8,
+        backgroundColor:'#FF9333',
+        borderRadius:8,
+        textAlign:'center',
+        marginVertical:8,
+        marginHorizontal:16,
+        width:280
     },
     preview:{
         height:'250%'

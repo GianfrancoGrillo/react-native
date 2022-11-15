@@ -17,11 +17,35 @@ class Profile extends Component {
 			<>
 				 <Text> Mi Perfil </Text>
 				<TouchableOpacity onPress={() => this.logOut()}>
-					<Text>Cerrar Sesion</Text>
+					<Text  style={styles.button2}>Cerrar Sesion</Text>
 				</TouchableOpacity>  
 			</>
 		);
 	}
 }
+const styles = StyleSheet.create({
+	bold:{
+		fontWeight: "bold",
+	},
+	button: {
+        padding:8,
+        backgroundColor:'#FF9333',
+        borderRadius:8,
+        textAlign:'center',
+        marginVertical:8,
+        marginHorizontal:16,
+        width:280
+    },
+	button2: {
+        padding:8,
+        backgroundColor:'grey',
+        borderRadius:8,
+        textAlign:'center',
+        marginVertical:8,
+        marginHorizontal:16,
+        width:280
+    },
+		
+});
 
 export default Profile;

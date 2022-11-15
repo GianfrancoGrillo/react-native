@@ -120,11 +120,13 @@ class Register extends Component {
 
 
 				{/* si toco tengo cuenta que me lleve al login */}
-				<Text style={styles.bold} onPress={() => this.props.navigation.navigate('Login')}>YA TENGO CUENTA</Text>
+				<TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Login')}>
+					<Text style={styles.bold}>YA TENGO CUENTA</Text>
+					</TouchableOpacity>
 
 				{/*  cuando tocamos el boton registrarme con el metodo Onpress
                      con un callback llamamos a la funcion registerUser y creamos el usuario */}
-				<TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.nombreUsuario, this.state.bio)}>
+				<TouchableOpacity style={styles.button} onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.nombreUsuario, this.state.bio)}>
 					<Text style={styles.bold}>REGISTRARME</Text>
 				</TouchableOpacity>
 			</View>
@@ -176,7 +178,25 @@ const styles = StyleSheet.create({
 	},
 	bold:{
 		fontWeight: "bold",
-	}
+	},
+	button: {
+        padding:8,
+        backgroundColor:'#FF9333',
+        borderRadius:8,
+        textAlign:'center',
+        marginVertical:8,
+        marginHorizontal:16,
+        width:280
+    },
+	button2: {
+        padding:8,
+        backgroundColor:'grey',
+        borderRadius:8,
+        textAlign:'center',
+        marginVertical:8,
+        marginHorizontal:16,
+        width:280
+    },
 		
 });
 
