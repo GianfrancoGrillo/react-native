@@ -52,6 +52,9 @@ class Register extends Component {
 						bio: bio,
 
 					})
+					res.user.updateProfile({
+						displayName: nombreUsuario,
+					})
 					//reiniciamos el state a 0
 					.then((res) => {
 						this.setState({

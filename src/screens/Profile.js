@@ -1,21 +1,44 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { auth } from '../firebase/config';
+import { auth,db } from '../firebase/config';
 
 class Profile extends Component {
 	  constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {users:''};
 	}
 
+    componentDidMount(){
+        console.log(auth.currentUser)
+        db.collection('users').where('email','==',auth.currentUser.email).onSnapshot(
+            docs=>{
+                let users = []
+                docs.forEach(doc=>{
+                users.push({
+                id: doc.id,
+                data: doc.data()
+                })
+
+        this.setState({
+            users: users})
+                })
+            }
+        )
+    }
+
+   
 	logOut() {
 		auth.signOut();
 		this.props.navigation.navigate('Login');
 	}  
 	render() {
+       
 		return (
 			<>
-				 <Text> Mi Perfil </Text>
+				 <Text>Email: {auth.currentUser.email} </Text>
+                 <Text>Nombre de usuario: {auth.currentUser.displayName} </Text>
+                 <Text>Biografía:</Text>
+
 				<TouchableOpacity onPress={() => this.logOut()}>
 					<Text  style={styles.button2}>Cerrar Sesion</Text>
 				</TouchableOpacity>  
