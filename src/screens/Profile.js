@@ -6,6 +6,7 @@ class Profile extends Component {
 	  constructor(props) {
 		super(props);
 		this.state = {users:''};
+        this.state = {posts:[]};
 	}
 
     componentDidMount(){
@@ -24,6 +25,8 @@ class Profile extends Component {
                 })
             }
         )
+
+
     }
 
    
@@ -38,6 +41,8 @@ class Profile extends Component {
 				 <Text>Email: {auth.currentUser.email} </Text>
                  <Text>Nombre de usuario: {auth.currentUser.displayName} </Text>
                  <Text>Biografía:</Text>
+                 <Text>Cantidad de posteos:</Text>
+                 <Text>Posteos:</Text>
 
 				<TouchableOpacity onPress={() => this.logOut()}>
 					<Text  style={styles.button2}>Cerrar Sesion</Text>

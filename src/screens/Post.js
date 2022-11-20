@@ -37,7 +37,22 @@ class Post extends Component {
 			.catch((error) => console.log(error));
 	}
 
-	unLike() {}
+	unLike() {
+		db
+		.collection('posts')
+		.doc(this.props.dataPost.id)
+		.update({
+            likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.displayName)
+        })
+        .then((res) => {
+            this.setState({
+                cantidadDeLikes: this.state.cantidadDeLikes - 1,
+				myLike: false
+            })
+        })
+        .catch(err => console.log(err))
+
+	}
 
 	render() {
 		return (
