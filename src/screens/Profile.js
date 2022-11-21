@@ -31,7 +31,7 @@ class Profile extends Component {
                 })
             }
         )
-		db.collection('posts').where('owner','==',auth.currentUser.email).orderBy("createdAt", "description").onSnapshot(
+		db.collection('posts').where('owner','==',auth.currentUser.email).onSnapshot(
             docs=>{
                 let postsInProfile = [];
                 docs.forEach((doc)=>{
@@ -42,7 +42,7 @@ class Profile extends Component {
 		
 
         this.setState({
-            posts: postsInProfile[0].data})
+            posts: postsInProfile})
                 })
             }
 		)
@@ -58,18 +58,19 @@ class Profile extends Component {
 	render() {
        
 	   console.log(this.state.posts)
+       
 		return (
 			<>
 				 <Text style={styles.title2}>Email: {auth.currentUser.email} </Text>
                  <Text style={styles.title2}>Nombre de usuario: {this.state.nombreUsuario} </Text>
                  <Text style={styles.title2}>Biografía: {this.state.bio}</Text>
-                 <Text style={styles.title2}>Cantidad de posteos:</Text>
+                 <Text style={styles.title2}>Cantidad de posteos:  </Text>
                  <ScrollView>
                 <View>
                     <Text style={styles.title}>POSTEOS</Text>
                     <FlatList 
                         data={this.state.posts}
-                        keyExtractor={post => post.id}
+                        keyExtractor={post => post.id.toString()}
                         renderItem = { ({item}) => <Post dataPost={item} 
                         {...this.props} />}
                     />

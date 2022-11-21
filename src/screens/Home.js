@@ -42,7 +42,7 @@ class Home extends Component {
 
 
     render(){
-        // console.log(this.state);
+         console.log(this.state.posts)
         return(
             <ScrollView>
                 <View>
