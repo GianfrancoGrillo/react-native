@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, ScrollView,Image } from 'react-native';
 import { auth,db } from '../firebase/config';
 import Post from "../screens/Post"; 
 class Profile extends Component {
 	  constructor(props) {
 		super(props);
-		this.state = {users:''};
-        this.state = {posts:[]};
-		this.state = {bio:''};
-		this.state = {nombreUsuario:''};
+		this.state ={
+			users:'',
+			posts:[],
+			bio:'',
+			nombreUsuario:'',
+			image :''
+		}
+		
 	}
 
     componentDidMount(){
-        console.log(auth.currentUser)
         db.collection('users').where('email','==',auth.currentUser.email).onSnapshot(
             docs=>{
                 let users = []
@@ -25,7 +28,9 @@ class Profile extends Component {
 
         this.setState({
           bio: users[0].data.bio,
-		  nombreUsuario: users[0].data.nombreUsuario});
+		  nombreUsuario: users[0].data.nombreUsuario,
+		  image: users[0].data.image
+		});
 		  
 
                 })
@@ -39,7 +44,6 @@ class Profile extends Component {
                 id: doc.id,
                 data: doc.data()
                 });
-		
 
         this.setState({
             posts: postsInProfile})
@@ -56,15 +60,17 @@ class Profile extends Component {
 		this.props.navigation.navigate('Login');
 	}  
 	render() {
-       
-	   console.log(this.state.posts)
-       
 		return (
 			<>
+				<Image 
+                    source={{uri:this.state.image}}
+                    resizeMode="contain"
+                    style={styles.image}
+                />
 				 <Text style={styles.title2}>Email: {auth.currentUser.email} </Text>
                  <Text style={styles.title2}>Nombre de usuario: {this.state.nombreUsuario} </Text>
                  <Text style={styles.title2}>Biografía: {this.state.bio}</Text>
-                 <Text style={styles.title2}>Cantidad de posteos:  </Text>
+                 <Text style={styles.title2}>Cantidad de posteos:{this.state.posts.length}  </Text>
                  <ScrollView>
                 <View>
                     <Text style={styles.title}>POSTEOS</Text>
@@ -86,6 +92,13 @@ class Profile extends Component {
 	}
 }
 const styles = StyleSheet.create({
+	image:{
+	/* 	borderBottomLeftRadius:50,
+		borderBottomRightRadius:50,
+		borderTopLeftRadius:50,
+		borderTopRightRadius:50, */
+		height:200
+	},
 	bold:{
 		fontWeight: "bold",
 	},

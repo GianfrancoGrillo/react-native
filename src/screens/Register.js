@@ -1,6 +1,7 @@
 import { auth, db } from '../firebase/config';
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+ import * as ImagePicker from 'expo-image-picker'; 
 
 
 class Register extends Component {
@@ -19,6 +20,8 @@ class Register extends Component {
 				pass: '',
 				bio: '',
 			},
+			image: '',
+            permission: false
 		};
 	}
 	componentDidMount() {
@@ -39,6 +42,20 @@ class Register extends Component {
 			return
 		}
 		
+	 	fetch(this.state.image)
+        .then(res=>res.blob())
+        .then(image=>{
+            const ref = storage.ref(`perfil/${Date.now()}.jpg`)
+            ref.put(image)
+            .then(()=>{
+                ref.getDownloadURL()
+                .then(()=>{
+                    this.onImageUpload(image)
+
+                })
+            })
+        })
+        .catch(err=>console.log(err))
 		auth
 			//metodo de firebase para crear usuario
 			.createUserWithEmailAndPassword(email, pass)
@@ -47,9 +64,10 @@ class Register extends Component {
 					//creamos usuario en la base de datos
 					.collection('users')
 					.add({
-						email: email,
-						nombreUsuario: nombreUsuario,
-						bio: bio,
+						email: this.state.email,
+						nombreUsuario: this.state.nombreUsuario,
+						bio: this.state.bio,
+						image: this.state.image
 
 					})
 					res.user.updateProfile({
@@ -60,7 +78,8 @@ class Register extends Component {
 						this.setState({
 							email: '',
 							pass: '',
-							bio: bio,
+							bio: '',
+							image: ''
 
 						});
 						//una vez creado el usuario que te lleve al menu
@@ -69,6 +88,31 @@ class Register extends Component {
 			})
 			.catch((error) => console.log(error));
 	}
+ 	onImageUpload(image){
+        this.setState({image: image}, () => {console.log(this.state.image)}
+        ) 
+    }
+
+    elegirImagen(){
+        ImagePicker.getMediaLibraryPermissionsAsync() // no funciona el permiso
+        .then(()=>this.setState({
+            permission: true
+        }))
+        .catch(err=>console.log(err))
+        
+        let image = ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        })
+        .then((res) => {
+            if (!image.cancelled) {
+                this.setState({image: res.uri})
+                
+            }
+        })
+    } 
 
 	render() {
 		return (
@@ -117,6 +161,13 @@ class Register extends Component {
 					secureTextEntry onChangeText={(text) => this.setState({ pass: text })}
 					value={this.state.pass}
 				/>
+				   <TouchableOpacity 
+                        style={styles.campo}
+                        onPress={()=>{this.elegirImagen()}}
+                    >
+                        <Text style={styles.perfil}>Elegí tu foto de perfil</Text>
+                    {/* {this.state.image && <Image source={{uri: this.state.image}} style={{width: 200, height: 200}}/>} */}
+                    </TouchableOpacity>
 
 
 
@@ -129,7 +180,7 @@ class Register extends Component {
 
 				{/*  cuando tocamos el boton registrarme con el metodo Onpress
                      con un callback llamamos a la funcion registerUser y creamos el usuario */}
-				<TouchableOpacity style={styles.button} onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.nombreUsuario, this.state.bio)}>
+				<TouchableOpacity style={styles.button} onPress={() => this.registerUser(this.state.email, this.state.pass, this.state.nombreUsuario, this.state.bio, this.state.image)}>
 					<Text style={styles.bold}>REGISTRARME</Text>
 				</TouchableOpacity>
 			</View>
