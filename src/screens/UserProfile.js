@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, ScrollVi
 import { AppRegistry } from 'react-native-web';
 import { auth,db } from '../firebase/config'; //auth objeto literal con muchas propiedades 
 import Post from "../screens/Post"; 
-class Profile extends Component {
+class UserProfile extends Component {
 	  constructor(props) {
 		super(props);
 		this.state ={ //objeto de informacion
@@ -11,13 +11,15 @@ class Profile extends Component {
 			posts:[],
 			bio:'',
 			nombreUsuario:'', // estoy inicializando el estado
-			image :''
+			image :'',
+            email:''
 		}
 		//permite que el usuario pueda , a traves de el uso de la App, que estos estados se actualicen
 	}
 
     componentDidMount(){ // SE EJECUTA LA PRIMERA VEZ QUE SE RENDERIZA EL COMPONENTE
-        db.collection('users').where('email','==',auth.currentUser.email).onSnapshot( //selecciona una lista de documentos de una coleccion "users" y el metodo where filtra por campo email los documentos que cumplan con esa condicion
+        console.log(this.props.route.params)
+        db.collection('users').where('email','==',this.props.route.params.Usuario).onSnapshot( //selecciona una lista de documentos de una coleccion "users" y el metodo where filtra por campo email los documentos que cumplan con esa condicion
             docs=>{                                                                  // Condicion: de todos los documentos yo quiero traer el campo email que sea igual a el email del actual usuario logueado 
                 let users = []    // creamos una variable para guardar los datos que pasaremos al estado del componente     //OnSnapshot obtiene todos los documentos de la coleccion y los coloca en el parametro docs
                 docs.forEach(doc=>{   //recorremos el array de documentos    // va a traer un solo documento porque el mail es unico
@@ -30,7 +32,8 @@ class Profile extends Component {
         this.setState({ // actualizamos el estado con la informacion de la base de datos
           bio: users[0].data.bio, // el [0] es la primera posicion del array que tenia todos los documentos filtrados, como solo trae un documento nosotros especificamos que necesitaremos especificamente cierta informacion del objeto de esa posicion 
 		  nombreUsuario: users[0].data.nombreUsuario, // le pasamos la propiedad data y especificamos que informacion necesitamos
-		  image: users[0].data.image
+		  image: users[0].data.image,
+          email: users[0].data.email
 		});
 		  
 
@@ -68,7 +71,7 @@ class Profile extends Component {
                     resizeMode="contain" //cambiamos el comportamiento de la imagena contain
                     style={styles.image}
                 />
-				 <Text style={styles.title2}>Email: {auth.currentUser.email} </Text>
+				 <Text style={styles.title2}>Email: {this.state.email} </Text>
                  <Text style={styles.title2}>Nombre de usuario: {this.state.nombreUsuario} </Text>
                  <Text style={styles.title2}>Biografía: {this.state.bio}</Text>
                  <Text style={styles.title2}>Cantidad de posteos:{this.state.posts.length}  </Text>
@@ -136,5 +139,4 @@ const styles = StyleSheet.create({
 		padding: 10,
     }	
 });
-
-export default Profile;
+export default UserProfile;

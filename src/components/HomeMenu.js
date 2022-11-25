@@ -4,7 +4,7 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
 import NewPost from '../screens/NewPost';
-import Search from '../screens/Search'
+import NavegationSearch from './NavegationSearch'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -15,7 +15,7 @@ function HomeMenu() {
 		<Tab.Navigator>
 			<Tab.Screen style={styles.naranja} name="Home" component={Home}  options={{ tabBarIcon: () => <FontAwesome name="home"  size={24} color="#FF9333" /> }} />
 			<Tab.Screen style={styles.naranja}name="Profile" component={Profile} options={{ tabBarIcon: () => <FontAwesome name="user" size={24} color="#FF9333" /> }} />
-            <Tab.Screen style={styles.naranja}name='Search' component={Search} options={{tabBarIcon: ({focused}) => <Ionicons name="search-sharp" size={24} color='#FF9333'/>}}/>
+            <Tab.Screen style={styles.naranja}name='NavegationSearch' component={NavegationSearch} options={{tabBarIcon: ({focused}) => <Ionicons name="search-sharp" size={24} color='#FF9333'/>}}/>
              <Tab.Screen style={styles.naranja}name="NewPost" component={NewPost}  options={{ tabBarIcon: () => <FontAwesome name="photo" size={24} color="#FF9333" /> }} />
 		</Tab.Navigator>
 	);

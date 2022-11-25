@@ -8,6 +8,7 @@ import Comments from './src/screens/Comments';
 //dependencias que instalamos stack navigation y navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import UserProfile from './src/screens/UserProfile';
 
 
 //Objeto con dos componentes Navigator y Screen
@@ -21,6 +22,8 @@ export default function App() {
       <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
       <Stack.Screen options={{ headerShown: false }} name="HomeMenu" component={HomeMenu} />
       <Stack.Screen options={{ headerShown: true }} name="Comments" component={Comments} />
+      <Stack.Screen options={{ headerShown: true }} name="UserProfile" component={UserProfile} />
+      
     </Stack.Navigator>
   </NavigationContainer>
   );

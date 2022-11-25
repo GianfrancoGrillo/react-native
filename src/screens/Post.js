@@ -55,10 +55,11 @@ class Post extends Component {
 	}
 
 	render() {
+		console.log(this.props.dataPost.data.owner)
 		return (
 			<View style={styles.separator}>
 				
-				 <Text  onPress={() => this.props.navigation.navigate('Profile')} style={styles.title}><strong>@{this.props.dataPost.data.owner}</strong></Text>
+				 <Text  onPress={() => this.props.navigation.navigate('UserProfile', {Usuario : this.props.dataPost.data.owner })} style={styles.title}><strong>@{this.props.dataPost.data.owner}</strong></Text>
                 <Image 
                     source={{uri:this.props.dataPost.data.url}}
                     resizeMode="contain"
